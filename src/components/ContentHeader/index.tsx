@@ -1,18 +1,18 @@
-import React from 'react';
+import React, { ReactElement, PropsWithChildren } from 'react';
+import { IContentHeaderProps } from './types';
 import { Container, TitleContainer, Controllers } from './styles';
 
-const ContentHeader: React.FC = () => {
+export default function ContentHeader({
+    children,
+    title,
+    lineColor,
+}: PropsWithChildren<IContentHeaderProps>): ReactElement {
     return (
         <Container>
-            <TitleContainer>
-                <h1>Título</h1>
+            <TitleContainer lineColor={lineColor}>
+                <h1>{title}</h1>
             </TitleContainer>
-            <Controllers>
-                <button type="button">Botão A</button>
-                <button type="button">Botão B</button>
-            </Controllers>
+            <Controllers>{children}</Controllers>
         </Container>
     );
-};
-
-export default ContentHeader;
+}
