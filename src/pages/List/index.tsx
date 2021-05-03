@@ -7,6 +7,7 @@ import { IRouteParams, IData } from './types';
 import gains from '../../repositories/gains';
 import expenses from '../../repositories/expenses';
 import formatCurrency from '../../utils/formatCurrency';
+import formatDate from '../../utils/formatDate';
 
 export default function List({ match }: IRouteParams): ReactElement {
     const [data, setData] = useState<IData[]>();
@@ -104,7 +105,7 @@ export default function List({ match }: IRouteParams): ReactElement {
                 description: i.description,
                 amountFormatted: formatCurrency(Number(i.amount)),
                 frequency: i.frequency,
-                dataFomatted: i.date,
+                dataFomatted: formatDate(i.date),
                 tagColor: i.frequency === 'recorrente' ? '#4e41f0' : '#e44c4e',
             };
         });
