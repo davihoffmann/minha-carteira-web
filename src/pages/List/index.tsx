@@ -2,7 +2,7 @@ import React from 'react';
 import ContentHeader from '../../components/ContentHeader';
 import SelectInput from '../../components/SelectInput';
 import HistoryFinanceCard from '../../components/HistoryFinanceCard';
-import { Container, Content } from './styles';
+import { Container, Filters, Content } from './styles';
 
 const List: React.FC = () => {
     const months = [
@@ -86,6 +86,15 @@ const List: React.FC = () => {
                 <SelectInput options={months} />
                 <SelectInput options={years} />
             </ContentHeader>
+
+            <Filters>
+                <button type="button" className="tag-filter tag-filter-recurrent">
+                    Recorrentes
+                </button>
+                <button type="button" className="tag-filter tag-filter-eventual">
+                    Eventuais
+                </button>
+            </Filters>
 
             <Content>
                 <HistoryFinanceCard tagColor="#e44c4e" title="Teste 1" subtitle="27/01/2021" amount="R$ 150,00" />
