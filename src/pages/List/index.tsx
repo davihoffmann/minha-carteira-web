@@ -4,10 +4,9 @@ import SelectInput from '../../components/SelectInput';
 import HistoryFinanceCard from '../../components/HistoryFinanceCard';
 import { Container, Filters, Content } from './styles';
 import { IRouteParams, IData } from './types';
-
 import gains from '../../repositories/gains';
 import expenses from '../../repositories/expenses';
-import { isTemplateTail } from 'typescript';
+import formatCurrency from '../../utils/formatCurrency';
 
 export default function List({ match }: IRouteParams): ReactElement {
     const [data, setData] = useState<IData[]>();
@@ -103,7 +102,7 @@ export default function List({ match }: IRouteParams): ReactElement {
             return {
                 id: String(Math.random() * listData.length),
                 description: i.description,
-                amountFormatted: i.amount,
+                amountFormatted: formatCurrency(Number(i.amount)),
                 frequency: i.frequency,
                 dataFomatted: i.date,
                 tagColor: i.frequency === 'recorrente' ? '#4e41f0' : '#e44c4e',
