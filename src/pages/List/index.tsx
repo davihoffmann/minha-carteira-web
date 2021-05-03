@@ -5,25 +5,86 @@ import HistoryFinanceCard from '../../components/HistoryFinanceCard';
 import { Container, Content } from './styles';
 
 const List: React.FC = () => {
-    const options = [
+    const months = [
         {
-            valor: 'Davi',
-            label: 'Davi',
+            valor: 1,
+            label: 'Janeiro',
         },
         {
-            valor: 'Davi1',
-            label: 'Davi1',
+            valor: 2,
+            label: 'Fevereiro',
         },
         {
-            valor: 'Davi2',
-            label: 'Davi2',
+            valor: 3,
+            label: 'Março',
+        },
+        {
+            valor: 4,
+            label: 'Abril',
+        },
+        {
+            valor: 5,
+            label: 'Maio',
+        },
+        {
+            valor: 6,
+            label: 'Junho',
+        },
+        {
+            valor: 7,
+            label: 'Julho',
+        },
+        {
+            valor: 8,
+            label: 'Agosto',
+        },
+        {
+            valor: 9,
+            label: 'Setembro',
+        },
+        {
+            valor: 10,
+            label: 'Outubro',
+        },
+        {
+            valor: 11,
+            label: 'Novembro',
+        },
+
+        {
+            valor: 12,
+            label: 'Dezembro',
+        },
+    ];
+
+    const years = [
+        {
+            valor: 2018,
+            label: 2018,
+        },
+        {
+            valor: 2019,
+            label: 2019,
+        },
+        {
+            valor: 2020,
+            label: 2020,
+        },
+        {
+            valor: 2021,
+            label: 2021,
+        },
+        {
+            valor: 2022,
+            label: 2022,
         },
     ];
 
     return (
         <Container>
             <ContentHeader title="List" lineColor="#F7b41B">
-                <SelectInput options={options} />
+                <SelectInput options={months} />
+                <SelectInput options={years} />
             </ContentHeader>
 
             <Content>
