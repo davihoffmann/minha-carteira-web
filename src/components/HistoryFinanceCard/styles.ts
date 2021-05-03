@@ -1,15 +1,11 @@
 import styled from 'styled-components';
 
-interface IContainerProps {
-    cardColor: string;
-}
-
 interface ITagProps {
     tagColor: string;
 }
 
-export const Container = styled.li<IContainerProps>`
-    background-color: ${props => props.cardColor};
+export const Container = styled.li`
+    background-color: ${props => props.theme.colors.tertiary};
 
     list-style: none;
     border-radius: 5px;

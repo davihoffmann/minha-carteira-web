@@ -3,14 +3,13 @@ import { IHistoryFinanceCardProps } from './types';
 import { Container, Tag } from './styles';
 
 export default function HistoryFinanceCard({
-    cardColor,
     tagColor,
     title,
     subtitle,
     amount,
 }: IHistoryFinanceCardProps): ReactElement {
     return (
-        <Container cardColor={cardColor}>
+        <Container>
             <Tag tagColor={tagColor} />
             <div>
                 <span>{title}</span>
