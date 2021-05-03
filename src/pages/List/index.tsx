@@ -1,24 +1,27 @@
-import React, { ReactElement, useMemo } from 'react';
+import React, { ReactElement, useMemo, useState, useEffect } from 'react';
 import ContentHeader from '../../components/ContentHeader';
 import SelectInput from '../../components/SelectInput';
 import HistoryFinanceCard from '../../components/HistoryFinanceCard';
 import { Container, Filters, Content } from './styles';
+import { IRouteParams, IData } from './types';
 
-interface IRouteParams {
-    match: {
-        params: {
-            type: string;
-        };
-    };
-}
+import gains from '../../repositories/gains';
+import expenses from '../../repositories/expenses';
+import { isTemplateTail } from 'typescript';
 
 export default function List({ match }: IRouteParams): ReactElement {
+    const [data, setData] = useState<IData[]>();
     const { type } = match.params;
+
     const headerInfo = useMemo(() => {
         return type === 'entry-balance'
             ? { title: 'Entradas', lineColor: '#f79310' }
             : { title: 'Saídas', lineColor: '#e44c4e' };
     }, [type]);
+
+    const listData = useMemo(() => {
+        return type === 'entry-balance' ? gains : expenses;
+    }, []);
 
     const months = [
         {
@@ -95,6 +98,21 @@ export default function List({ match }: IRouteParams): ReactElement {
         },
     ];
 
+    useEffect(() => {
+        const response = listData.map(i => {
+            return {
+                id: String(Math.random() * listData.length),
+                description: i.description,
+                amountFormatted: i.amount,
+                frequency: i.frequency,
+                dataFomatted: i.date,
+                tagColor: i.frequency === 'recorrente' ? '#4e41f0' : '#e44c4e',
+            };
+        });
+
+        setData(response);
+    }, [listData]);
+
     return (
         <Container>
             <ContentHeader title={headerInfo.title} lineColor={headerInfo.lineColor}>
@@ -112,7 +130,15 @@ export default function List({ match }: IRouteParams): ReactElement {
             </Filters>
 
             <Content>
-                <HistoryFinanceCard tagColor="#e44c4e" title="Teste 1" subtitle="27/01/2021" amount="R$ 150,00" />
+                {data?.map(item => (
+                    <HistoryFinanceCard
+                        key={item.id}
+                        tagColor={item.tagColor}
+                        title={item.description}
+                        subtitle={item.dataFomatted}
+                        amount={item.amountFormatted}
+                    />
+                ))}
             </Content>
         </Container>
     );
