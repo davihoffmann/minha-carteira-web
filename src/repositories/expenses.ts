@@ -18,7 +18,7 @@ export default [
         frequency: 'eventual',
         date: '2020-02-26',
     },
-    { description: 'Cinema', amount: '45.00', type: 'saída', frequency: 'eventual', date: '2020-02-23' },
+    { description: 'Cinema', amount: '45.00', type: 'saída', frequency: 'eventual', date: '2021-02-23' },
     { description: 'Energia elétrica', amount: '97.00', type: 'saída', frequency: 'recorrente', date: '2020-03-10' },
     { description: 'Água', amount: '100.10', type: 'saída', frequency: 'recorrente', date: '2020-03-15' },
     { description: 'Telefone', amount: '99.99', type: 'saída', frequency: 'recorrente', date: '2020-03-23' },
