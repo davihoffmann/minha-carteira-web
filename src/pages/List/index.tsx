@@ -1,4 +1,5 @@
 import React, { ReactElement, useMemo, useState, useEffect } from 'react';
+import { uuid } from 'uuidv4';
 import ContentHeader from '../../components/ContentHeader';
 import SelectInput from '../../components/SelectInput';
 import HistoryFinanceCard from '../../components/HistoryFinanceCard';
@@ -8,6 +9,7 @@ import gains from '../../repositories/gains';
 import expenses from '../../repositories/expenses';
 import formatCurrency from '../../utils/formatCurrency';
 import formatDate from '../../utils/formatDate';
+import listOfMonths from '../../utils/months';
 
 export default function List({ match }: IRouteParams): ReactElement {
     const [data, setData] = useState<IData[]>();
@@ -25,80 +27,34 @@ export default function List({ match }: IRouteParams): ReactElement {
         return type === 'entry-balance' ? gains : expenses;
     }, []);
 
-    const months = [
-        {
-            valor: 1,
-            label: 'Janeiro',
-        },
-        {
-            valor: 2,
-            label: 'Fevereiro',
-        },
-        {
-            valor: 3,
-            label: 'Março',
-        },
-        {
-            valor: 4,
-            label: 'Abril',
-        },
-        {
-            valor: 5,
-            label: 'Maio',
-        },
-        {
-            valor: 6,
-            label: 'Junho',
-        },
-        {
-            valor: 7,
-            label: 'Julho',
-        },
-        {
-            valor: 8,
-            label: 'Agosto',
-        },
-        {
-            valor: 9,
-            label: 'Setembro',
-        },
-        {
-            valor: 10,
-            label: 'Outubro',
-        },
-        {
-            valor: 11,
-            label: 'Novembro',
-        },
+    const months = useMemo(() => {
+        return listOfMonths.map((month, index) => {
+            return {
+                valor: index + 1,
+                label: month,
+            };
+        });
+    }, []);
 
-        {
-            valor: 12,
-            label: 'Dezembro',
-        },
-    ];
+    const years = useMemo(() => {
+        let uniqueYears: number[] = [];
 
-    const years = [
-        {
-            valor: 2018,
-            label: 2018,
-        },
-        {
-            valor: 2019,
-            label: 2019,
-        },
-        {
-            valor: 2020,
-            label: 2020,
-        },
-        {
-            valor: 2021,
-            label: 2021,
-        },
-        {
-            valor: 2022,
-            label: 2022,
-        },
-    ];
+        listData.forEach(item => {
+            const date = new Date(item.date);
+            const year = date.getFullYear();
+
+            if (!uniqueYears.includes(year)) {
+                uniqueYears.push(year);
+            }
+        });
+
+        return uniqueYears.map(year => {
+            return {
+                valor: year,
+                label: year,
+            };
+        });
+    }, [listData]);
 
     useEffect(() => {
         const FilteredData = listData.filter(i => {
@@ -109,14 +65,14 @@ export default function List({ match }: IRouteParams): ReactElement {
             return month === monthSelected && year === yearSelected;
         });
 
-        const formattedData = FilteredData.map(i => {
+        const formattedData = FilteredData.map(item => {
             return {
-                id: String(new Date().getTime() / 1000) + i.amount,
-                description: i.description,
-                amountFormatted: formatCurrency(Number(i.amount)),
-                frequency: i.frequency,
-                dataFomatted: formatDate(i.date),
-                tagColor: i.frequency === 'recorrente' ? '#4e41f0' : '#e44c4e',
+                id: uuid(),
+                description: item.description,
+                amountFormatted: formatCurrency(Number(item.amount)),
+                frequency: item.frequency,
+                dataFomatted: formatDate(item.date),
+                tagColor: item.frequency === 'recorrente' ? '#4e41f0' : '#e44c4e',
             };
         });
 
