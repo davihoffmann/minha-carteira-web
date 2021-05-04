@@ -24,7 +24,7 @@ export default function List({ match }: IRouteParams): ReactElement {
 
     const pageData = useMemo(() => {
         if (type === 'entry-balance') {
-            return { title: 'Entradas', lineColor: '#f79310', data: gains };
+            return { title: 'Entradas', lineColor: '#4e41f0', data: gains };
         } else {
             return { title: 'Saídas', lineColor: '#e44c4e', data: expenses };
         }
