@@ -1,15 +1,19 @@
 import React, { ReactElement, useMemo, useState, useEffect } from 'react';
 import { uuid } from 'uuidv4';
+
 import ContentHeader from '../../components/ContentHeader';
 import SelectInput from '../../components/SelectInput';
 import HistoryFinanceCard from '../../components/HistoryFinanceCard';
-import { Container, Filters, Content } from './styles';
-import { IRouteParams, IData } from './types';
+
 import gains from '../../repositories/gains';
 import expenses from '../../repositories/expenses';
+
 import formatCurrency from '../../utils/formatCurrency';
 import formatDate from '../../utils/formatDate';
 import listOfMonths from '../../utils/months';
+
+import { Container, Filters, Content } from './styles';
+import { IRouteParams, IData } from './types';
 
 export default function List({ match }: IRouteParams): ReactElement {
     const [data, setData] = useState<IData[]>();
@@ -18,15 +22,13 @@ export default function List({ match }: IRouteParams): ReactElement {
     const [yearSelected, setYearSelected] = useState<string>(String(new Date().getFullYear()));
     const { type } = match.params;
 
-    const headerInfo = useMemo(() => {
-        return type === 'entry-balance'
-            ? { title: 'Entradas', lineColor: '#f79310' }
-            : { title: 'Saídas', lineColor: '#e44c4e' };
+    const pageData = useMemo(() => {
+        if (type === 'entry-balance') {
+            return { title: 'Entradas', lineColor: '#f79310', data: gains };
+        } else {
+            return { title: 'Saídas', lineColor: '#e44c4e', data: expenses };
+        }
     }, [type]);
-
-    const listData = useMemo(() => {
-        return type === 'entry-balance' ? gains : expenses;
-    }, []);
 
     const months = useMemo(() => {
         return listOfMonths.map((month, index) => {
@@ -40,7 +42,9 @@ export default function List({ match }: IRouteParams): ReactElement {
     const years = useMemo(() => {
         let uniqueYears: number[] = [];
 
-        listData.forEach(item => {
+        const { data } = pageData;
+
+        data.forEach(item => {
             const date = new Date(item.date);
             const year = date.getFullYear();
 
@@ -55,7 +59,7 @@ export default function List({ match }: IRouteParams): ReactElement {
                 label: year,
             };
         });
-    }, [listData]);
+    }, [pageData]);
 
     const handleFrequencyClick = (frequency: string) => {
         const alreadySelected = selectedFrequency.findIndex(item => item === frequency);
@@ -69,7 +73,8 @@ export default function List({ match }: IRouteParams): ReactElement {
     };
 
     useEffect(() => {
-        const FilteredData = listData.filter(i => {
+        const { data } = pageData;
+        const FilteredData = data.filter(i => {
             const date = new Date(i.date);
             const month = String(date.getMonth() + 1);
             const year = String(date.getFullYear());
@@ -89,11 +94,11 @@ export default function List({ match }: IRouteParams): ReactElement {
         });
 
         setData(formattedData);
-    }, [listData, monthSelected, yearSelected, selectedFrequency]);
+    }, [pageData, monthSelected, yearSelected, selectedFrequency]);
 
     return (
         <Container>
-            <ContentHeader title={headerInfo.title} lineColor={headerInfo.lineColor}>
+            <ContentHeader title={pageData.title} lineColor={pageData.lineColor}>
                 <SelectInput
                     options={months}
                     onChange={e => setMonthSelected(e.target.value)}
