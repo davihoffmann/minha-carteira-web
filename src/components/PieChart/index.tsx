@@ -9,11 +9,11 @@ export default function PieChart(): ReactElement {
             <SideLeft>
                 <h2>Relação</h2>
                 <LegendContainer>
-                    <Legend>
+                    <Legend color="#f7931b">
                         <div>95%</div>
                         <span>Saídas</span>
                     </Legend>
-                    <Legend>
+                    <Legend color="#e44c4e">
                         <div>5%</div>
                         <span>Entradas</span>
                     </Legend>
