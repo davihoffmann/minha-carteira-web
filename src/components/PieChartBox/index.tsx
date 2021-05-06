@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import { PieChart, Pie, ResponsiveContainer, Cell } from 'recharts';
+import { PieChart, Pie, ResponsiveContainer, Cell, Tooltip } from 'recharts';
 
 import { IPieChartProps } from './types';
 
@@ -23,11 +23,12 @@ export default function PieChartBox({ data }: IPieChartProps): ReactElement {
             <SideRight>
                 <ResponsiveContainer>
                     <PieChart>
-                        <Pie data={data} dataKey="percent">
+                        <Pie data={data} dataKey="percent" label>
                             {data.map(indicator => (
                                 <Cell key={indicator.name} fill={indicator.color} />
                             ))}
                         </Pie>
+                        <Tooltip />
                     </PieChart>
                 </ResponsiveContainer>
             </SideRight>
