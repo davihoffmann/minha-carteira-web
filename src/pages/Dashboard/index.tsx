@@ -211,18 +211,20 @@ const Dashboard: React.FC = () => {
             });
 
         const total = amountRecurrent + amountEventual;
+        const percentualRecurrent = (amountRecurrent / total) * 100;
+        const percentualEventual = (amountEventual / total) * 100;
 
         return [
             {
                 name: 'Recorrente',
                 amount: amountRecurrent,
-                percent: Number(((amountRecurrent / total) * 100).toFixed(1)),
+                percent: percentualRecurrent ? Number(percentualRecurrent.toFixed(1)) : 0,
                 color: '#f7931b',
             },
             {
                 name: 'Eventual',
                 amount: amountEventual,
-                percent: Number(((amountEventual / total) * 100).toFixed(1)),
+                percent: percentualEventual ? Number(percentualEventual.toFixed(1)) : 0,
                 color: '#e44c4e',
             },
         ];
@@ -251,18 +253,20 @@ const Dashboard: React.FC = () => {
             });
 
         const total = amountRecurrent + amountEventual;
+        const percentualRecurrent = (amountRecurrent / total) * 100;
+        const percentualEventual = (amountEventual / total) * 100;
 
         return [
             {
                 name: 'Recorrente',
                 amount: amountRecurrent,
-                percent: Number(((amountRecurrent / total) * 100).toFixed(1)),
+                percent: percentualRecurrent ? Number(percentualRecurrent.toFixed(1)) : 0,
                 color: '#f7931b',
             },
             {
                 name: 'Eventual',
                 amount: amountEventual,
-                percent: Number(((amountEventual / total) * 100).toFixed(1)),
+                percent: percentualEventual ? Number(percentualEventual.toFixed(1)) : 0,
                 color: '#e44c4e',
             },
         ];
