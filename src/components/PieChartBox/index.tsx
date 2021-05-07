@@ -15,7 +15,7 @@ export default function PieChartBox({ data }: IPieChartProps): ReactElement {
                     {data.map(item => (
                         <Legend key={item.name} color={item.color}>
                             <div>{item.percent}%</div>
-                            <span>{item.name}%</span>
+                            <span>{item.name}</span>
                         </Legend>
                     ))}
                 </LegendContainer>

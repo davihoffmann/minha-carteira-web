@@ -141,44 +141,51 @@ const Dashboard: React.FC = () => {
     }, [totalGains, totalExpenses]);
 
     const historyChartData = useMemo(() => {
-        return listOfMonths.map((_, month) => {
-            let amountEntry = 0;
-            gains.forEach(gain => {
-                const date = new Date(gain.date);
-                const gainMonth = date.getMonth();
-                const gainYear = date.getFullYear();
+        return listOfMonths
+            .map((_, month) => {
+                let amountEntry = 0;
+                gains.forEach(gain => {
+                    const date = new Date(gain.date);
+                    const gainMonth = date.getMonth();
+                    const gainYear = date.getFullYear();
 
-                if (gainMonth === month && gainYear === yearSelected) {
-                    try {
-                        amountEntry += Number(gain.amount);
-                    } catch {
-                        throw new Error('Amount Entry is Invalid. Amount Entry must be valid number!');
+                    if (gainMonth === month && gainYear === yearSelected) {
+                        try {
+                            amountEntry += Number(gain.amount);
+                        } catch {
+                            throw new Error('Amount Entry is Invalid. Amount Entry must be valid number!');
+                        }
                     }
-                }
-            });
+                });
 
-            let amountOutput = 0;
-            expenses.forEach(expense => {
-                const date = new Date(expense.date);
-                const expenseMonth = date.getMonth();
-                const expenseYear = date.getFullYear();
+                let amountOutput = 0;
+                expenses.forEach(expense => {
+                    const date = new Date(expense.date);
+                    const expenseMonth = date.getMonth();
+                    const expenseYear = date.getFullYear();
 
-                if (expenseMonth === month && expenseYear === yearSelected) {
-                    try {
-                        amountOutput += Number(expense.amount);
-                    } catch {
-                        throw new Error('Amount Output is Invalid. Amount Output must be valid number!');
+                    if (expenseMonth === month && expenseYear === yearSelected) {
+                        try {
+                            amountOutput += Number(expense.amount);
+                        } catch {
+                            throw new Error('Amount Output is Invalid. Amount Output must be valid number!');
+                        }
                     }
-                }
-            });
+                });
 
-            return {
-                monthNumber: month,
-                month: listOfMonths[month].substr(0, 3),
-                amountEntry,
-                amountOutput,
-            };
-        });
+                return {
+                    monthNumber: month,
+                    month: listOfMonths[month].substr(0, 3),
+                    amountEntry,
+                    amountOutput,
+                };
+            })
+            .filter(item => {
+                const currentMonth = new Date().getMonth();
+                const currentYear = new Date().getFullYear();
+
+                return (yearSelected === currentYear && item.monthNumber <= currentMonth) || yearSelected < currentYear;
+            });
     }, [yearSelected]);
 
     const handleMonthSelected = (month: string) => {
