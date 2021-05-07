@@ -8,7 +8,6 @@ import HistoryChartBox from '../../components/HistoryChartBox';
 
 import gains from '../../repositories/gains';
 import expenses from '../../repositories/expenses';
-
 import listOfMonths from '../../utils/months';
 
 import happyIcon from '../../assets/happy.svg';
@@ -187,6 +186,31 @@ const Dashboard: React.FC = () => {
                 return (yearSelected === currentYear && item.monthNumber <= currentMonth) || yearSelected < currentYear;
             });
     }, [yearSelected]);
+
+    const relationExpensevesRecurrentVersusEventual = useMemo(() => {
+        let amountRecurrent = 0;
+        let amountEventual = 0;
+
+        expenses
+            .filter(expense => {
+                const date = new Date(expense.date);
+                const year = date.getFullYear();
+                const month = date.getMonth() + 1;
+
+                return month === monthSelected && year === yearSelected;
+            })
+            .forEach(expense => {
+                if (expense.frequency === 'recorrente') {
+                    return (amountRecurrent += Number(expense.amount));
+                }
+
+                if (expense.frequency === 'eventual') {
+                    return (amountEventual += Number(expense.amount));
+                }
+            });
+
+        //todo: retonro do objeto
+    }, [monthSelected, yearSelected]);
 
     const handleMonthSelected = (month: string) => {
         try {
