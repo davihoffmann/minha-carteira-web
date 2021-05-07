@@ -21,12 +21,12 @@ export default function BarChartBox({ title, data }: IBarChartBoxProps): ReactEl
             <SideRight>
                 <ResponsiveContainer>
                     <BarChart data={data}>
-                        <Bar dataKey="amount">
+                        <Bar dataKey="amount" name="Valor">
                             {data.map(item => (
                                 <Cell key={item.name} cursor="pointer" fill={item.color} />
                             ))}
                         </Bar>
-                        <Tooltip formatter={(value: any) => formatCurrency(Number(value))} />
+                        <Tooltip cursor={{ fill: 'none' }} formatter={(value: any) => formatCurrency(Number(value))} />
                     </BarChart>
                 </ResponsiveContainer>
             </SideRight>
