@@ -30,9 +30,9 @@ const ThemeProvider: React.FC = ({ children }: React.PropsWithChildren<any>) => 
 
     const toggleTheme = () => {
         if (theme.title === 'dark') {
-            setTheme(light);
-        } else {
             setTheme(dark);
+        } else {
+            setTheme(light);
         }
     };
 
