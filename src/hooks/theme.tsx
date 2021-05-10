@@ -26,13 +26,23 @@ interface Itheme {
 const ThemeContext = createContext<IThemeContext>({} as IThemeContext);
 
 const ThemeProvider: React.FC = ({ children }: React.PropsWithChildren<any>) => {
-    const [theme, setTheme] = useState<Itheme>(dark);
+    const [theme, setTheme] = useState<Itheme>(() => {
+        const themeSaved = localStorage.getItem('@minha-careira:theme');
+
+        if (themeSaved) {
+            return JSON.parse(themeSaved);
+        } else {
+            return dark;
+        }
+    });
 
     const toggleTheme = () => {
         if (theme.title === 'dark') {
-            setTheme(dark);
-        } else {
             setTheme(light);
+            localStorage.setItem('@minha-careira:theme', JSON.stringify(light));
+        } else {
+            setTheme(dark);
+            localStorage.setItem('@minha-careira:theme', JSON.stringify(dark));
         }
     };
 
