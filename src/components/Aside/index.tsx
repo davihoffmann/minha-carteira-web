@@ -1,9 +1,11 @@
 import React from 'react';
 import { MdDashboard, MdArrowDownward, MdArrowUpward, MdExitToApp } from 'react-icons/md';
+import { Container, Header, Logo, Title, MenuContainer, MenuItem, MenuItemButton } from './styles';
+import { useAuth } from '../../hooks/auth';
 import logoImg from '../../assets/logo.svg';
-import { Container, Header, Logo, Title, MenuContainer, MenuItem } from './styles';
 
 const Aside: React.FC = () => {
+    const { signOut } = useAuth();
     return (
         <Container>
             <Header>
@@ -22,10 +24,10 @@ const Aside: React.FC = () => {
                 <MenuItem to="/list/exit-balance">
                     <MdArrowUpward /> Saídas
                 </MenuItem>
-                <MenuItem to="#">
+                <MenuItemButton onClick={signOut}>
                     <MdExitToApp />
                     Sair
-                </MenuItem>
+                </MenuItemButton>
             </MenuContainer>
         </Container>
     );
