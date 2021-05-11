@@ -5,7 +5,7 @@ import Signin from '../pages/Signin';
 export default function AuthRoutes(): ReactElement {
     return (
         <Switch>
-            <Route component={Signin} />
+            <Route path="/" component={Signin} />
         </Switch>
     );
 }

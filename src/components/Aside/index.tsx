@@ -12,7 +12,7 @@ const Aside: React.FC = () => {
             </Header>
 
             <MenuContainer>
-                <MenuItem to="/dashboard">
+                <MenuItem to="/">
                     <MdDashboard />
                     Dashboard
                 </MenuItem>
