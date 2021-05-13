@@ -5,6 +5,10 @@ interface IContainerProps {
     isOpen: boolean;
 }
 
+interface IThemeToggleFooterProps {
+    isOpen: boolean;
+}
+
 export const Container = styled.div<IContainerProps>`
     grid-area: AS;
     background-color: ${props => props.theme.colors.secondary};
@@ -122,5 +126,15 @@ export const ToogleMenu = styled.button`
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+`;
+
+export const ThemeToggleFooter = styled.footer<IThemeToggleFooterProps>`
+    display: none;
+    position: absolute;
+    bottom: 30px;
+
+    @media (max-width: 470px) {
+        display: ${props => props.isOpen && 'flex'};
     }
 `;

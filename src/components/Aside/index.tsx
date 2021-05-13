@@ -1,12 +1,31 @@
 import React, { useState } from 'react';
 import { MdDashboard, MdArrowDownward, MdArrowUpward, MdExitToApp, MdClose, MdMenu } from 'react-icons/md';
-import { Container, Header, Logo, Title, MenuContainer, MenuItem, MenuItemButton, ToogleMenu } from './styles';
+import Toggle from '../Toggle';
+import {
+    Container,
+    Header,
+    Logo,
+    Title,
+    MenuContainer,
+    MenuItem,
+    MenuItemButton,
+    ToogleMenu,
+    ThemeToggleFooter,
+} from './styles';
 import { useAuth } from '../../hooks/auth';
+import { useTheme } from '../../hooks/theme';
 import logoImg from '../../assets/logo.svg';
 
 const Aside: React.FC = () => {
     const [menuIsOpen, setMenuOpen] = useState(false);
     const { signOut } = useAuth();
+    const { toggleTheme, theme } = useTheme();
+    const [darkTheme, setDarkTheme] = useState(() => (theme.title === 'dark' ? true : false));
+
+    const handleChangeTheme = () => {
+        setDarkTheme(!darkTheme);
+        toggleTheme();
+    };
 
     const handleToggleMenu = () => {
         setMenuOpen(curr => !curr);
@@ -36,6 +55,9 @@ const Aside: React.FC = () => {
                     Sair
                 </MenuItemButton>
             </MenuContainer>
+            <ThemeToggleFooter isOpen={menuIsOpen}>
+                <Toggle labelLeft="Light" labelRight="Dark" checked={darkTheme} onChange={handleChangeTheme} />
+            </ThemeToggleFooter>
         </Container>
     );
 };
