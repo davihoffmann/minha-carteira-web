@@ -7,7 +7,7 @@ import logoImg from '../../assets/logo.svg';
 const Aside: React.FC = () => {
     const { signOut } = useAuth();
     return (
-        <Container>
+        <Container isOpen={false}>
             <Header>
                 <Logo src={logoImg} alt="Logo Minha Carteira" />
                 <Title>Minha Carteira</Title>

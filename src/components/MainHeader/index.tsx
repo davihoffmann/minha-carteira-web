@@ -1,9 +1,9 @@
 import React, { useMemo, useState } from 'react';
 import emojis from '../../utils/emojis';
-import Toggle from '../../components/Toggle';
+
 import { useTheme } from '../../hooks/theme';
 
-import { Container, Profile, Welcome, Username } from './styles';
+import { Container, Profile, Welcome, Username, Toggle } from './styles';
 
 const MainHeader: React.FC = () => {
     const { toggleTheme, theme } = useTheme();
